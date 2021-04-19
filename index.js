@@ -47,6 +47,7 @@ client.connect(err => {
             })
     })
 
+    // cors pre flight for post product
     app.options('/addArtWork', cors())
 
     app.post('/addArtWork',cors(), (req, res) => {
