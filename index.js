@@ -25,7 +25,7 @@ const app = express();
 app.use(fileUpload())
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: false, parameterLimit: 50000 }));
-app.use(cors({ origin: `https://tonu-s-creation.web.app`}))
+app.use(cors())
 
 
 const port = 2259;
