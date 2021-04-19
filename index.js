@@ -73,17 +73,16 @@ client.connect(err => {
                 size: img.size,
                 img: Buffer.from(encImg, 'base64')
             }
-
-            productCollection.insertOne({ name, paper, size, price, borderColor, borderSize, image, artType })
-                .then(result => {
-                    res.send(result.insertedCount > 0)
-                    fs.remove(filePath, err => {
-                        if (err) {
-                            console.log(err);
-                        }
-                    })
-                })
         })
+        productCollection.insertOne({ name, paper, size, price, borderColor, borderSize, image, artType })
+            .then(result => {
+                res.send(result.insertedCount > 0)
+                fs.remove(filePath, err => {
+                    if (err) {
+                        console.log(err);
+                    }
+                })
+            })
     })
 
     app.delete('/deleteProduct/:id', (req, res) => {
