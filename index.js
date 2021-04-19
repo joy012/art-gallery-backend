@@ -47,7 +47,9 @@ client.connect(err => {
             })
     })
 
-    app.post('/addArtWork', (req, res) => {
+    app.options('/addArtWork', cors())
+
+    app.post('/addArtWork',cors(), (req, res) => {
         const img = req.files.productImg;
         const name = req.body.name;
         const paper = req.body.paper;
