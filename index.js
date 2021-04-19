@@ -22,9 +22,6 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 const app = express();
 
-
-
-
 app.use(cors());
 app.use(fileUpload())
 app.use(bodyParser.json({ limit: "50mb" }));

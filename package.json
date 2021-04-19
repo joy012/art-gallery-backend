@@ -23,7 +23,6 @@
     "request": "^2.88.2",
     "utf8": "^3.0.0"
   },
-
   "devDependencies": {
     "nodemon": "^2.0.7"
   }
