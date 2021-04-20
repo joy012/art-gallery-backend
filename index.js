@@ -48,7 +48,7 @@ client.connect(err => {
 
 
     app.post('/addArtWork', (req, res) => {
-        const img = req.body.productImg;
+        const img = req.body.img;
         const name = req.body.name;
         const paper = req.body.paper;
         const size = req.body.size;
