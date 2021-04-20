@@ -4,8 +4,6 @@ const cors = require('cors');
 const MongoClient = require('mongodb').MongoClient
 const ObjectId = require('mongodb').ObjectId;
 const bodyParser = require('body-parser');
-const fs = require('fs-extra');
-const fileUpload = require('express-fileupload');
 const admin = require('firebase-admin');
 const utf8 = require('utf8');
 const serviceAccount = require("./config/tonu-s-creation-firebase-adminsdk-nfdxx-a57b06f358.json");
@@ -22,7 +20,6 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 const app = express();
 
-app.use(fileUpload())
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: false, parameterLimit: 50000 }));
 app.use(cors())
@@ -47,11 +44,11 @@ client.connect(err => {
             })
     })
 
-    // cors pre flight for post product
-    app.options('/addArtWork', cors())
 
-    app.post('/addArtWork',cors(), (req, res) => {
-        const img = req.files.productImg;
+
+
+    app.post('/addArtWork', (req, res) => {
+        const img = req.body.productImg;
         const name = req.body.name;
         const paper = req.body.paper;
         const size = req.body.size;
@@ -59,32 +56,13 @@ client.connect(err => {
         const borderColor = req.body.borderColor;
         const borderSize = req.body.borderSize;
         const artType = req.body.artType;
-        const filePath = `${__dirname}/products/${img.name}`;
 
-        img.mv(filePath, err => {
-            if (err) {
-                console.log(err);
-            }
-            const newImg = fs.readFileSync(filePath);
-            const encImg = newImg.toString('base64');
-
-            const image = {
-                contentType: img.mimetype,
-                size: img.size,
-                img: Buffer.from(encImg, 'base64')
-            }
-            productCollection.insertOne({ name, paper, size, price, borderColor, borderSize, image, artType })
-                .then(result => {
-                    res.send(result.insertedCount > 0)
-                    fs.remove(filePath, err => {
-                        if (err) {
-                            console.log(err);
-                        }
-                    })
-                })
-        })
-
+        productCollection.insertOne({ name, paper, size, price, borderColor, borderSize, img, artType })
+            .then(result => {
+                res.send(result.insertedCount > 0)
+            })
     })
+
 
     app.delete('/deleteProduct/:id', (req, res) => {
         console.log(req)
