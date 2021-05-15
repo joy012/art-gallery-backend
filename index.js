@@ -134,18 +134,18 @@ Price: ${pd.price}\n\n`
             .then(result => {
                 if (result.insertedCount > 0) {
                     request(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.MY_ID}&text=${userMessage}`, function (error, response, body) {
-                        console.log(body);
-                    });
-                    request(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.MY_ID}&text=${orderMessage}`, function (error, response, body) {
-                        console.log(error);
+
+                        request(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.MY_ID}&text=${orderMessage}`, function (error, response, body) {
+                            console.log(error);
+                        });
                     });
 
 
                     request(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.TONU_ID}&text=${userMessage}`, function (error, response, body) {
-                        console.log(body);
-                    });
-                    request(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.TONU_ID}&text=${orderMessage}`, function (error, response, body) {
-                        console.log(error);
+
+                        request(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.TONU_ID}&text=${orderMessage}`, function (error, response, body) {
+                            console.log(error);
+                        });
                     });
 
                     res.send(result.insertedCount > 0)
