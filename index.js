@@ -15,7 +15,7 @@ admin.initializeApp({
 });
 
 
-const uri = `mongodb+srv://tonusCreation:50114400@cluster0.ukskk.mongodb.net/tonus-creation?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.ukskk.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const app = express();
@@ -132,18 +132,18 @@ Price: ${pd.price}\n\n`
         orderCollection.insertOne({ name, address, email, mobile, city, paymentMethod, totalPayment, txId, status, cart })
             .then(result => {
                 if (result.insertedCount > 0) {
-                    request(`https://api.telegram.org/bot1515370605:AAFFVIa8HYKBMuSkVwCYTBRcIFz_fhp4g7I/sendMessage?chat_id=974639281&text=${userMessage}`, function (error, response, body) {
+                    request(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.MY_ID}&text=${userMessage}`, function (error, response, body) {
                         console.log(body);
                     });
-                    request(`https://api.telegram.org/bot1515370605:AAFFVIa8HYKBMuSkVwCYTBRcIFz_fhp4g7I/sendMessage?chat_id=974639281&text=${orderMessage}`, function (error, response, body) {
+                    request(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.MY_ID}&text=${orderMessage}`, function (error, response, body) {
                         console.log(error);
                     });
 
 
-                    request(`https://api.telegram.org/bot1515370605:AAFFVIa8HYKBMuSkVwCYTBRcIFz_fhp4g7I/sendMessage?chat_id=1235711022&text=${userMessage}`, function (error, response, body) {
+                    request(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.TONU_ID}&text=${userMessage}`, function (error, response, body) {
                         console.log(body);
                     });
-                    request(`https://api.telegram.org/bot1515370605:AAFFVIa8HYKBMuSkVwCYTBRcIFz_fhp4g7I/sendMessage?chat_id=1235711022&text=${orderMessage}`, function (error, response, body) {
+                    request(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage?chat_id=${process.env.TONU_ID}&text=${orderMessage}`, function (error, response, body) {
                         console.log(error);
                     });
 
