@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const admin = require('firebase-admin');
 const utf8 = require('utf8');
 const serviceAccount = require("./config/tonu-s-creation-firebase-adminsdk-nfdxx-a57b06f358.json");
+require('dotenv').config()
 
 
 admin.initializeApp({
